@@ -1,11 +1,10 @@
-'use client'
+'use client';
 
-import {createContext, useEffect, useState} from "react";
+import { createContext, useEffect, useState } from "react";
 
 export const ThemeContext = createContext();
 
-export function ThemeProvider({children}) {
-
+export function ThemeProvider({ children }) {
     const [darkMode, setDarkMode] = useState(null);
 
     useEffect(() => {
@@ -15,24 +14,21 @@ export function ThemeProvider({children}) {
 
     useEffect(() => {
         if (darkMode === null) return;
-        if (darkMode) {
-            document.documentElement.style.setProperty('--background', '#0a0a0a');
-            document.documentElement.style.setProperty('--foreground', '#ededed');
+
+        if(darkMode) {
+            document.documentElement.style.setProperty('--background', '#1A1A1A');
+            document.documentElement.style.setProperty('--foreground', '#DDDEE2');
         } else {
-            document.documentElement.style.setProperty('--background', '#ffffff');
-            document.documentElement.style.setProperty('--foreground', '#171717');
+            document.documentElement.style.setProperty('--background', '#FFFFFF');
+            document.documentElement.style.setProperty('--foreground', '#202020');
         }
     }, [darkMode]);
 
-    const toggleDarkMode = () => {
-        setDarkMode(!darkMode)
-    }
+    const toggleDarkMode = () => setDarkMode(!darkMode);
 
     return (
-        <div>
-            <ThemeContext.Provider value={{darkMode, toggleDarkMode}}>
-                {children}
-            </ThemeContext.Provider>
-        </div>
-    )
+        <ThemeContext.Provider value={{ darkMode, toggleDarkMode }}>
+            {children}
+        </ThemeContext.Provider>
+    );
 }
