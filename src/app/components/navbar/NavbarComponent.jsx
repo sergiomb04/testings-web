@@ -69,7 +69,7 @@ function NavbarLinkComponent({href, title, active, hovered, onEnter}) {
                 />
             )}
 
-            <Link href={href} className="relative z-10 w-full h-full flex items-center justify-center">
+            <Link href={href} className="relative z-10 w-full h-full flex items-center justify-center" draggable={false}>
                 <motion.span
                     animate={{color: active ? "#FFFFFF" : "#202020"}}
                     transition={{duration: 0.2}}
