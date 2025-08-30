@@ -1,8 +1,14 @@
 @import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 :root {
-    --background: #ffffff;
-    --foreground: #171717;
+    --color-gray: #202020;
+    --color-dark: #1A1A1A;
+    --color-secondary-dark: #232424;
+    --color-light: #949494;
+    --color-secondary-light: #DDDEE2;
 }
 
 @theme inline {
@@ -14,8 +20,8 @@
 
 @media (prefers-color-scheme: dark) {
     :root {
-        --background: #0a0a0a;
-        --foreground: #ededed;
+        --background: #1A1A1A;
+        --foreground: #DDDEE2;
     }
 }
 
@@ -23,7 +29,6 @@ body {
     background: var(--background);
     color: var(--foreground);
     font-family: Arial, Helvetica, sans-serif;
-    margin: 1rem;
 }
 
 @layer base {
