@@ -1,3 +1,5 @@
+'use client'
+
 export default function IconToggle({enabled, enabledIcon, disabledIcon, onClick}) {
     return (
         <button
