@@ -2,7 +2,7 @@ export default function IconToggle({enabled, enabledIcon, disabledIcon, onClick}
     return (
         <button
             onClick={onClick}
-            className={`relative w-14 h-8 rounded-full p-1 ${
+            className={`relative w-14 h-8 rounded-full p-1 cursor-pointer ${
                 enabled ? "bg-green-400" : "bg-gray-400"
             } transition-colors duration-300`}
         >
