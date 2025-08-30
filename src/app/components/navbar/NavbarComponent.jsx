@@ -21,7 +21,7 @@ export default function NavbarComponent() {
         <div className="flex justify-center">
             <LayoutGroup id="navbar">
                 <ul
-                    className="font-sans font-medium relative text-center flex gap-2 bg-[#949494] w-max p-1.5 rounded-full"
+                    className="flex gap-2 overflow-x-auto no-scrollbar p-1.5 bg-[#949494] rounded-full"
                     onMouseLeave={() => setHovered(null)}
                 >
                     {links.map((link) => (
