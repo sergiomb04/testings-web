@@ -61,8 +61,11 @@ function NavbarLinkComponent({href, title, active, hovered, onEnter}) {
             {hovered && !active && (
                 <motion.span
                     layoutId="hover-link"
-                    transition={{type: "spring", stiffness: 600, damping: 40, mass: 0.35}}
-                    className="absolute inset-0 bg-[#DDDEE2] rounded-full pointer-events-none "
+                    initial={{opacity: 0}}
+                    animate={{opacity: 1}}
+                    exit={{opacity: 0}}
+                    transition={{type: "spring", stiffness: 600, damping: 40, mass: 0.35, duration: 0.5}}
+                    className="absolute inset-0 bg-[#DDDEE2] rounded-full pointer-events-none"
                 />
             )}
 
