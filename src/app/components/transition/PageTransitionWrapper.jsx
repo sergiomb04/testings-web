@@ -13,8 +13,6 @@ export default function PageTransitionWrapper({ children }) {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
             style={{ width: "100%", height: "100%" }}
-            onAnimationStart={() => console.log("Animación start")}
-            onAnimationComplete={() => console.log("Animación complete")}
         >
             {children}
         </motion.div>
