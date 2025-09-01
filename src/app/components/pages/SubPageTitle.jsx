@@ -12,9 +12,7 @@ export default function SubPageTitle({title, description, children}) {
                     <h2 className={"text-2xl pt-4"}>{description}</h2>
                 </div>
 
-                <div className={"mt-16 self-start"}>
-                    {children}
-                </div>
+                {children}
             </div>
         </div>
     )

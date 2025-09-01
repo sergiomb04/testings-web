@@ -8,12 +8,16 @@ export default function InfoCard({icon, title, description, hrefText, href}) {
             </div>
 
             <div>
-                <h3 className={"font-semibold text-2xl pb-2"}>{title}</h3>
+                <h3 className={"font-semibold text-2xl pb-1"}>{title}</h3>
                 <p>{description}</p>
             </div>
 
-            <a href={href}
-               className={"font-semibold underline h-max"}>
+            <a
+                href={href}
+                target={href.startsWith("http") ? "_blank" : undefined}
+                rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
+                className="font-semibold underline h-max"
+            >
                 {hrefText}
             </a>
         </div>
