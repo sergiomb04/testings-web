@@ -5,7 +5,7 @@ export default async function ItemsComponent() {
     return (
         <div className="grid grid-cols-1 xl:grid-cols-4 md:grid-cols-2 gap-4">
             {data.map((item, index) => (
-                <a key={index} className="flex flex-col border border-gray-600 p-4 rounded-2xl bg-gray-800 hover:bg-gray-700" href={`items/${index}`}>
+                <a key={index} className="flex flex-col border border-gray-600 p-4 rounded-2xl bg-gray-800 hover:bg-gray-700" href={`items/${index + 1}`}>
                     <div className="flex justify-center items-center h-40 mb-4">
                         <img
                             src={item.image}
