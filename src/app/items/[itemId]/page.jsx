@@ -7,11 +7,10 @@ export default async function ItemPage({ params }) {
     }
     const data = await res.json();
 
-
     return (
         <div>
             <p>Item ID: {itemId}</p>
-            <p>{data}</p>
+            <p>{JSON.stringify(data)}</p>
         </div>
     );
 }
