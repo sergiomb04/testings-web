@@ -1,6 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-    reactStrictMode: false
+    reactStrictMode: false,
+    images: {
+        domains: ['fakestoreapi.com'],
+    },
 };
 
 export default nextConfig;

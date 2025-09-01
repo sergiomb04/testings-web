@@ -10,7 +10,7 @@ const links = [
     {href: "/work", title: "Work"},
     {href: "/awards", title: "Awards"},
     {href: "/team", title: "Team"},
-    {href: "/prices", title: "Prices"},
+    {href: "/items", title: "Items"},
     {href: "/contact", title: "Contact"},
 ];
 
