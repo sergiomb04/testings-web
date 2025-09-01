@@ -3,8 +3,8 @@ import GetStartedButton from "@/app/components/landing/GetStartedButton";
 export default function LandingHome() {
     return (
         <div className="flex justify-center align-middle items-center my-30">
-            <div className="flex flex-col justify-center text-center w-1/2">
-                <h1 className="mb-8">Modern Landing Page</h1>
+            <div className="flex flex-col justify-center text-center w-1/2 gap-8">
+                <h1>Modern Landing Page</h1>
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
                     et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
                     aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
