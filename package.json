@@ -9,6 +9,7 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@svgr/webpack": "^8.1.0",
     "framer-motion": "^12.23.12",
     "lucide": "^0.541.0",
     "lucide-react": "^0.541.0",
