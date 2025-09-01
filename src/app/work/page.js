@@ -1,4 +1,4 @@
-export default function TestPage() {
+export default function WorkPage() {
     return (
         <div>
             <h1>Work - Page</h1>

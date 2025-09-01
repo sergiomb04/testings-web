@@ -1,4 +1,4 @@
-export default function TestPage() {
+export default function AwardsPage() {
     return (
         <div>
             <h1>Awards - Page</h1>

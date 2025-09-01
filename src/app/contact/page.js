@@ -33,7 +33,7 @@ const contactOptions = [
     },
 ];
 
-export default function TestPage() {
+export default function ContactPage() {
     return (
         <div>
             <SubPageTitle
