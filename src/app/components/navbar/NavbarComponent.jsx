@@ -1,17 +1,17 @@
 "use client";
-import { usePathname } from "next/navigation";
-import { LayoutGroup, motion } from "framer-motion";
+import {usePathname} from "next/navigation";
+import {LayoutGroup, motion} from "framer-motion";
 import Link from "next/link";
 import {useEffect, useState} from "react";
 import NavLogoComp from "@/app/components/navbar/NavLogoComp";
 
 const links = [
-    { href: "/", title: "Home" },
-    { href: "/work", title: "Work" },
-    { href: "/awards", title: "Awards" },
-    { href: "/team", title: "Team" },
-    { href: "/prices", title: "Prices" },
-    { href: "/contact", title: "Contact" },
+    {href: "/", title: "Home"},
+    {href: "/work", title: "Work"},
+    {href: "/awards", title: "Awards"},
+    {href: "/team", title: "Team"},
+    {href: "/prices", title: "Prices"},
+    {href: "/contact", title: "Contact"},
 ];
 
 export default function NavbarComponent() {
@@ -25,7 +25,7 @@ export default function NavbarComponent() {
 
     return (
         <div className="flex items-center justify-between min-md:justify-start min-md:gap-12 w-full p-2">
-            <NavLogoComp />
+            <NavLogoComp/>
 
             {/* Links desktop */}
             <LayoutGroup id="navbar">
@@ -65,7 +65,8 @@ export default function NavbarComponent() {
 
             {/* Menú mobile desplegable */}
             {mobileNavOpen && (
-                <div className="absolute top-16 right-4 bg-white shadow-lg rounded-xl p-4 flex flex-col gap-2 md:hidden z-50">
+                <div
+                    className="absolute top-16 right-4 bg-white shadow-lg rounded-xl p-4 flex flex-col gap-2 md:hidden z-50">
                     {links.map((link) => (
                         <Link
                             key={link.href}
@@ -82,7 +83,7 @@ export default function NavbarComponent() {
     );
 }
 
-function NavbarLinkComponent({ href, title, active, hovered, onEnter }) {
+function NavbarLinkComponent({href, title, active, hovered, onEnter}) {
     return (
         <li
             className="relative text-[#202020] text-xl rounded-full px-4 py-2"
@@ -92,9 +93,9 @@ function NavbarLinkComponent({ href, title, active, hovered, onEnter }) {
             {active && (
                 <motion.span
                     layoutId="active-link"
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.2, ease: "easeOut" }}
+                    initial={{opacity: 0, scale: 0.9}}
+                    animate={{opacity: 1, scale: 1}}
+                    transition={{duration: 0.2, ease: "easeOut"}}
                     className="absolute inset-0 bg-[#1A1A1A] rounded-full"
                 />
             )}
@@ -103,9 +104,9 @@ function NavbarLinkComponent({ href, title, active, hovered, onEnter }) {
             {hovered && !active && (
                 <motion.span
                     layoutId="hover-link"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
+                    initial={{opacity: 0}}
+                    animate={{opacity: 1}}
+                    exit={{opacity: 0}}
                     transition={{
                         type: "spring",
                         stiffness: 600,
@@ -123,8 +124,8 @@ function NavbarLinkComponent({ href, title, active, hovered, onEnter }) {
                 draggable={false}
             >
                 <motion.span
-                    animate={{ color: active ? "#FFFFFF" : "#202020" }}
-                    transition={{ duration: 0.2 }}
+                    animate={{color: active ? "#FFFFFF" : "#202020"}}
+                    transition={{duration: 0.2}}
                 >
                     {title}
                 </motion.span>

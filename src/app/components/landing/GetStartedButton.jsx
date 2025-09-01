@@ -2,13 +2,13 @@
 
 export default function GetStartedButton() {
     return (
-        <a href="/contact"
-        className="text-xl font-semibold rounded-full border-gray-600 p-6 border-1 w-max px-18 m-auto
-        transform transition-transform duration-200 hover:scale-105">
-            <button
-                className=" cursor-pointer">
-                GET STARTED
+        <a
+            href="/contact"
+            className="text-xl font-semibold rounded-4xl border-gray-600 p-2 border w-full max-w-max px-8 m-auto
+        transform transition-transform duration-200 hover:scale-105 flex justify-center">
+            <button className="cursor-pointer w-full max-w-max">
+                LEARN MORE
             </button>
         </a>
-    )
+    );
 }
