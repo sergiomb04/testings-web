@@ -1,9 +1,14 @@
 import Image from "next/image";
 
 export default function NavLogoComp() {
+    const imageStyle = {
+        width: '40px',
+        height: 'auto',
+    }
+
     return (
         <div className={"flex gap-2 justify-center align-middle items-center font-sans font-bold w-max text-xl"}>
-            <Image src="/logo.svg" alt="Logo" width={40} height={10} color="white"/>
+            <Image src="/logo.svg" alt="Logo" width={10} height={10} style={imageStyle}/>
             <p>Empresa Moderna</p>
         </div>
     )
