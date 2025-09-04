@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="Gradle: org.glassfish.tyrus:tyrus-server:2.1.1" type="java-imported" external-system-id="GRADLE">
+    <properties groupId="org.glassfish.tyrus" artifactId="tyrus-server" version="2.1.1" />
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.glassfish.tyrus/tyrus-server/2.1.1/f7fdd05dcc7862436e1c960caed4772d3290c08e/tyrus-server-2.1.1.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
