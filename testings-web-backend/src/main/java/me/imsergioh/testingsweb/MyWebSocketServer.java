@@ -29,7 +29,7 @@ public class MyWebSocketServer {
         // reenviar a todos los clientes
         for (Session s : sessions) {
             if (s.isOpen()) {
-                s.getBasicRemote().sendText("Echo: " + message);
+                s.getBasicRemote().sendText(message);
             }
         }
     }

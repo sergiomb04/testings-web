@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module external.linked.project.id="testings-web-backend:main" external.linked.project.path="$MODULE_DIR$/../../testings-web-backend" external.root.project.path="$MODULE_DIR$/../../testings-web-backend" external.system.id="GRADLE" external.system.module.group="me.imsergioh.testingsweb" external.system.module.type="sourceSet" external.system.module.version="1.0-SNAPSHOT" type="JAVA_MODULE" version="4">
-  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_21">
+  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_17">
     <output url="file://$MODULE_DIR$/../../testings-web-backend/build/classes/java/main" />
     <exclude-output />
     <content url="file://$MODULE_DIR$/../../testings-web-backend/src/main">
       <sourceFolder url="file://$MODULE_DIR$/../../testings-web-backend/src/main/java" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/../../testings-web-backend/src/main/resources" type="java-resource" />
     </content>
-    <orderEntry type="inheritedJdk" />
+    <orderEntry type="jdk" jdkName="corretto-17" jdkType="JavaSDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="Gradle: org.glassfish.tyrus:tyrus-container-grizzly-server:2.1.1" level="project" />
     <orderEntry type="library" name="Gradle: org.glassfish.tyrus:tyrus-server:2.1.1" level="project" />

@@ -7,6 +7,7 @@ import NavLogoComp from "@/app/components/navbar/NavLogoComp";
 
 const links = [
     {href: "/", title: "Home"},
+    {href: "/testing", title: "Testing"},
     {href: "/work", title: "Work"},
     {href: "/awards", title: "Awards"},
     {href: "/team", title: "Team"},

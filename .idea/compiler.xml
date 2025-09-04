@@ -2,9 +2,9 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <bytecodeTargetLevel>
-      <module name="testings-web-backend" target="21" />
-      <module name="testings-web-backend.main" target="21" />
-      <module name="testings-web-backend.test" target="21" />
+      <module name="testings-web-backend" target="17" />
+      <module name="testings-web-backend.main" target="17" />
+      <module name="testings-web-backend.test" target="17" />
     </bytecodeTargetLevel>
   </component>
 </project>
