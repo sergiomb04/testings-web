@@ -6,38 +6,28 @@ import jakarta.websocket.OnOpen;
 import jakarta.websocket.Session;
 
 import jakarta.websocket.server.ServerEndpoint;
+import me.imsergioh.testingsweb.client.ClientConnection;
 import org.glassfish.tyrus.server.Server;
 
 import java.io.IOException;
-import java.util.Set;
-import java.util.concurrent.CopyOnWriteArraySet;
 
 @ServerEndpoint("/ws")
 public class MyWebSocketServer {
 
-    private static final Set<Session> sessions = new CopyOnWriteArraySet<>();
-
     @OnOpen
     public void onOpen(Session session) {
-        sessions.add(session);
-        System.out.println("Nueva conexión: " + session.getId());
+        ClientConnection.register(session);
     }
 
     @OnMessage
-    public void onMessage(String message, Session session) throws IOException {
-        System.out.println("Mensaje recibido: " + message);
-        // reenviar a todos los clientes
-        for (Session s : sessions) {
-            if (s.isOpen()) {
-                s.getBasicRemote().sendText(message);
-            }
-        }
+    public void onMessage(String message, Session session) {
+        // TODO: MEJORAR PARA QUE SE PUEDAN EJECUTAR COMANDOS DE CLIENTE Y REALIZAR COSAS CHULAS (ACTUALMENTE SE HACE BROADCAST A TODOS LOS CLIENTES)
+        ClientConnection.broadcast(message);
     }
 
     @OnClose
     public void onClose(Session session) {
-        sessions.remove(session);
-        System.out.println("Conexión cerrada: " + session.getId());
+        ClientConnection.unregister(session);
     }
 
     // Para arrancar un servidor embebido
