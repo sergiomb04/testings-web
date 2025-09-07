@@ -9,6 +9,7 @@ import jakarta.websocket.server.ServerEndpoint;
 import me.imsergioh.testingsweb.client.ClientConnection;
 import me.imsergioh.testingsweb.command.TestCommand;
 import me.imsergioh.testingsweb.handler.CommandsHandler;
+import me.imsergioh.testingsweb.handler.RequestsHandler;
 import org.glassfish.tyrus.server.Server;
 
 import java.io.IOException;
@@ -27,8 +28,7 @@ public class MyWebSocketServer {
 
     @OnMessage
     public void onMessage(String message, Session session) {
-        // TODO: MEJORAR PARA QUE SE PUEDAN EJECUTAR COMANDOS DE CLIENTE Y REALIZAR COSAS CHULAS (ACTUALMENTE SE HACE BROADCAST A TODOS LOS CLIENTES)
-        ClientConnection.broadcast(message);
+        RequestsHandler.handle(ClientConnection.get(session), message);
     }
 
     @OnClose

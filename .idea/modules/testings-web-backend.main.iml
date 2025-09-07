@@ -3,17 +3,20 @@
   <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_17">
     <output url="file://$MODULE_DIR$/../../testings-web-backend/build/classes/java/main" />
     <exclude-output />
+    <content url="file://$MODULE_DIR$/../../testings-web-backend/build/generated/sources/annotationProcessor/java/main">
+      <sourceFolder url="file://$MODULE_DIR$/../../testings-web-backend/build/generated/sources/annotationProcessor/java/main" isTestSource="false" generated="true" />
+    </content>
     <content url="file://$MODULE_DIR$/../../testings-web-backend/src/main">
       <sourceFolder url="file://$MODULE_DIR$/../../testings-web-backend/src/main/java" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/../../testings-web-backend/src/main/resources" type="java-resource" />
     </content>
     <orderEntry type="jdk" jdkName="corretto-17" jdkType="JavaSDK" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" scope="PROVIDED" name="Gradle: org.projectlombok:lombok:1.18.30" level="project" />
     <orderEntry type="library" name="Gradle: org.glassfish.tyrus:tyrus-container-grizzly-server:2.1.1" level="project" />
     <orderEntry type="library" name="Gradle: org.glassfish.tyrus:tyrus-server:2.1.1" level="project" />
     <orderEntry type="library" name="Gradle: org.glassfish.tyrus:tyrus-client:2.1.1" level="project" />
     <orderEntry type="library" name="Gradle: jakarta.websocket:jakarta.websocket-api:2.1.1" level="project" />
-    <orderEntry type="library" name="Gradle: org.projectlombok:lombok:1.18.30" level="project" />
     <orderEntry type="library" name="Gradle: org.mongodb:bson:5.5.1" level="project" />
     <orderEntry type="library" name="Gradle: org.glassfish.tyrus:tyrus-container-grizzly-client:2.1.1" level="project" />
     <orderEntry type="library" name="Gradle: org.glassfish.grizzly:grizzly-http-server:4.0.0" level="project" />

@@ -59,4 +59,7 @@ public class ClientConnection {
         new ClientConnection(session);
     }
 
+    public static ClientConnection get(Session session) {
+        return clients.get(session.getId());
+    }
 }

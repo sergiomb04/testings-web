@@ -7,7 +7,6 @@ public class TestCommand extends ClientCommand {
 
     public TestCommand() {
         super("test");
-        System.out.println("Comando test registrado correctamente");
     }
 
     @Override
