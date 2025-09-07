@@ -55,7 +55,7 @@ public class RequestsHandler {
 
         Class<? extends IGenericRequest> requestClass = requestTypes.get(type);
         if (requestClass == null) return;
-        Constructor<?> constructor = requestClass.getConstructor(Document.class);
+        Constructor<?> constructor = requestClass.getDeclaredConstructor(Document.class);
         constructor.setAccessible(true);
         IGenericRequest request = (IGenericRequest) constructor.newInstance(document);
         request.handle(connection);
