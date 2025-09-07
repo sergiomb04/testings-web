@@ -11,6 +11,9 @@ public class TestCommand extends ClientCommand {
 
     @Override
     public void performCommand(ClientConnection connection, String[] args) {
-        connection.sendText("ejecutado comando test!");
+        System.out.println("TestCommand executed!");
+
+        if (connection != null)
+            connection.sendText("ejecutado comando test!");
     }
 }

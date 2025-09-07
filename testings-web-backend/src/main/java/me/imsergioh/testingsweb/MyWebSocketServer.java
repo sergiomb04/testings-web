@@ -4,20 +4,18 @@ import jakarta.websocket.OnClose;
 import jakarta.websocket.OnMessage;
 import jakarta.websocket.OnOpen;
 import jakarta.websocket.Session;
-
 import jakarta.websocket.server.ServerEndpoint;
 import me.imsergioh.testingsweb.client.ClientConnection;
 import me.imsergioh.testingsweb.command.TestCommand;
 import me.imsergioh.testingsweb.handler.CommandsHandler;
 import me.imsergioh.testingsweb.handler.RequestsHandler;
+import me.imsergioh.testingsweb.object.command.CommandRequest;
 import org.glassfish.tyrus.server.Server;
-
-import java.io.IOException;
 
 @ServerEndpoint("/ws")
 public class MyWebSocketServer {
 
-    private static void init() {
+    public static void init() {
         CommandsHandler.register(new TestCommand());
     }
 
@@ -36,7 +34,6 @@ public class MyWebSocketServer {
         ClientConnection.unregister(session);
     }
 
-    // Para arrancar un servidor embebido
     public static void main(String[] args) {
         Server server = new Server("localhost", 8080, "/", null, MyWebSocketServer.class);
         try {
@@ -48,5 +45,6 @@ public class MyWebSocketServer {
             e.printStackTrace();
         }
     }
+
 
 }

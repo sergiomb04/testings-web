@@ -14,8 +14,8 @@ public interface IGenericRequest {
 
     default Document toDocument() {
         final Document doc = new Document();
-        doc.append("id", id());
-        doc.append("type", type());
+        doc.append("id", id().toString());
+        doc.append("type", type().name());
         return doc;
     }
 

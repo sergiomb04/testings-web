@@ -24,7 +24,7 @@ public class CommandRequest extends GenericRequest {
         this.label = label;
     }
 
-    private CommandRequest(String label) {
+    public CommandRequest(String label) {
         this(UUID.randomUUID(), label);
     }
 

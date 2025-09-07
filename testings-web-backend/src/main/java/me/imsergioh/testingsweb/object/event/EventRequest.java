@@ -20,7 +20,7 @@ public class EventRequest extends GenericRequest {
         this(IGenericRequest.getId(document), document.get(PAYLOAD_FIELD, Document.class));
     }
 
-    private EventRequest(UUID uuid, Document payload) {
+    public EventRequest(UUID uuid, Document payload) {
         super(uuid);
         this.payload = payload;
     }
