@@ -7,12 +7,18 @@ import jakarta.websocket.Session;
 
 import jakarta.websocket.server.ServerEndpoint;
 import me.imsergioh.testingsweb.client.ClientConnection;
+import me.imsergioh.testingsweb.command.TestCommand;
+import me.imsergioh.testingsweb.handler.CommandsHandler;
 import org.glassfish.tyrus.server.Server;
 
 import java.io.IOException;
 
 @ServerEndpoint("/ws")
 public class MyWebSocketServer {
+
+    private static void init() {
+        CommandsHandler.register(new TestCommand());
+    }
 
     @OnOpen
     public void onOpen(Session session) {
@@ -36,6 +42,7 @@ public class MyWebSocketServer {
         try {
             server.start();
             System.out.println("Servidor WebSocket iniciado en ws://localhost:8080/ws");
+            init();
             Thread.currentThread().join();
         } catch (Exception e) {
             e.printStackTrace();

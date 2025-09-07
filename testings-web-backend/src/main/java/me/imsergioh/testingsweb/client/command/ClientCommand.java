@@ -1,4 +1,4 @@
-package me.imsergioh.testingsweb.command;
+package me.imsergioh.testingsweb.client.command;
 
 import lombok.Getter;
 
@@ -10,4 +10,5 @@ public abstract class ClientCommand implements IClientCommand {
     public ClientCommand(String name) {
         this.name = name;
     }
+
 }

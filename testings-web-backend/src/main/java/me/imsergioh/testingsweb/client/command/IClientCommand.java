@@ -1,4 +1,4 @@
-package me.imsergioh.testingsweb.command;
+package me.imsergioh.testingsweb.client.command;
 
 import me.imsergioh.testingsweb.client.ClientConnection;
 
