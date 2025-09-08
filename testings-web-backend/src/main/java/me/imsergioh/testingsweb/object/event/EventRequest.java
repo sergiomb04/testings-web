@@ -12,7 +12,7 @@ public class EventRequest extends GenericRequest {
 
     private static final String PAYLOAD_FIELD = "payload";
 
-    private static final String EVENT_TYPE_FIELD = "eventType";
+    public static final String EVENT_TYPE_FIELD = "eventType";
 
     private final Document payload;
 

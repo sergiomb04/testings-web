@@ -45,6 +45,4 @@ public class MyWebSocketServer {
             e.printStackTrace();
         }
     }
-
-
 }

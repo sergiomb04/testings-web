@@ -2,10 +2,17 @@ package me.imsergioh.testingsweb.client;
 
 import jakarta.websocket.Session;
 import lombok.Getter;
+import me.imsergioh.testingsweb.object.command.CommandRequest;
+import me.imsergioh.testingsweb.object.event.EventRequest;
+import me.imsergioh.testingsweb.object.event.EventType;
+import me.imsergioh.testingsweb.object.request.IGenericRequest;
+import org.bson.Document;
 
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
+import java.util.function.Consumer;
 
 @Getter
 public class ClientConnection {
@@ -23,9 +30,20 @@ public class ClientConnection {
         System.out.println("Nueva conexión: " + id);
     }
 
-    public void sendText(String text)  {
+    public void sendCommand(String label)  {
+        sendRequest(new CommandRequest(label));
+    }
+
+    public void sendEvent(EventType type, Document extraPayload)  {
+        Document payload = new Document(EventRequest.EVENT_TYPE_FIELD, type.name());
+        payload.putAll(extraPayload);
+
+        sendRequest(new EventRequest(UUID.randomUUID(), payload));
+    }
+
+    private void sendRequest(IGenericRequest request)  {
         try {
-            session.getBasicRemote().sendText(text);
+            session.getBasicRemote().sendText(request.toDocument().toJson());
         } catch (IOException e) {
             disconnect(e);
             throw new RuntimeException(e);
@@ -45,10 +63,14 @@ public class ClientConnection {
         clients.remove(id);
     }
 
-    public static void broadcast(String input) {
-        clients.forEach((id, client) -> {
-            client.sendText(input);
+    public static void broadcast(IGenericRequest request) {
+        clients.values().forEach(client -> {
+            client.sendRequest(request);
         });
+    }
+
+    public static void forEach(Consumer<ClientConnection> consumer) {
+        clients.values().forEach(consumer);
     }
 
     public static void unregister(Session session) {
