@@ -1,5 +1,9 @@
-// lib/wsClient.js
+import {toast} from "react-hot-toast";
+
+const onError = (payload) => toast.error(payload.message);
+
 class WSClient {
+
     constructor() {
         this.socket = null;
         this.listeners = {};
@@ -17,6 +21,7 @@ class WSClient {
 
         this.socket.onopen = () => {
             console.log("✅ Conectado al WebSocket");
+            wsClient.on("ERROR", onError);
             this.emit("open");
         };
 
@@ -94,7 +99,6 @@ class WSClient {
     _send(json) {
         if (this.socket?.readyState === WebSocket.OPEN) {
             this.socket.send(JSON.stringify(json));
-            console.log("📤 Enviado:", json);
         } else {
             console.warn("⚠️ Socket no está abierto");
         }

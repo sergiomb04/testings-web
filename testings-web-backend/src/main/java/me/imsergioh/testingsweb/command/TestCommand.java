@@ -15,6 +15,6 @@ public class TestCommand extends ClientCommand {
     @Override
     public void performCommand(ClientConnection connection, UUID requestId, String[] args) {
         System.out.println(Arrays.toString(args));
-        connection.sendErrorResponse(requestId, "No hay nada realmente para ejecutar.");
+        connection.sendCommand("testFrontend arg1 arg2");
     }
 }
