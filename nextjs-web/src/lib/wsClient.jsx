@@ -29,7 +29,6 @@ class WSClient {
             try {
                 const data = JSON.parse(event.data);
 
-                // Emite según el tipo
                 if (data.type === "EVENT") {
                     this.emit("event", data);
                     if (data.payload?.eventType) {
@@ -41,7 +40,8 @@ class WSClient {
                     this.emit("message", data);
                 }
             } catch (err) {
-                console.error("❌ Error parseando JSON:", err);
+                console.error("Error parseando JSON:", err);
+                onError({message: "Error interpretando datos del backend."})
             }
         };
 
@@ -57,20 +57,18 @@ class WSClient {
         };
 
         this.socket.onerror = (err) => {
-            console.error("❌ Error WebSocket:", err);
             this.emit("error", err);
         };
     }
 
     disconnect() {
+        wsClient.off("ERROR");
         this.shouldReconnect = false;
         if (this.socket) {
             this.socket.close();
             this.socket = null;
         }
     }
-
-    // --- Métodos adaptados a tu backend ---
 
     sendCommand(label) {
         this._send({
@@ -95,7 +93,6 @@ class WSClient {
         this.sendEvent("RESPONSE", { id: requestId, message: logMessage });
     }
 
-    // --- Internos ---
     _send(json) {
         if (this.socket?.readyState === WebSocket.OPEN) {
             this.socket.send(JSON.stringify(json));
