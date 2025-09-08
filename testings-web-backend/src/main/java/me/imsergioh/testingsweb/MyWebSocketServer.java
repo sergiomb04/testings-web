@@ -6,17 +6,22 @@ import jakarta.websocket.OnOpen;
 import jakarta.websocket.Session;
 import jakarta.websocket.server.ServerEndpoint;
 import me.imsergioh.testingsweb.client.ClientConnection;
-import me.imsergioh.testingsweb.command.TestCommand;
-import me.imsergioh.testingsweb.handler.CommandsHandler;
+import me.imsergioh.testingsweb.command.client.TestCommand;
+import me.imsergioh.testingsweb.command.server.ReloadCommand;
+import me.imsergioh.testingsweb.handler.ClientCommandsHandler;
+import me.imsergioh.testingsweb.handler.ConsoleCommandsHandler;
 import me.imsergioh.testingsweb.handler.RequestsHandler;
-import me.imsergioh.testingsweb.object.command.CommandRequest;
 import org.glassfish.tyrus.server.Server;
 
 @ServerEndpoint("/ws")
 public class MyWebSocketServer {
 
     public static void init() {
-        CommandsHandler.register(new TestCommand());
+        // Client-Commands Registry
+        ClientCommandsHandler.register(new TestCommand());
+
+        // Server-Commands Registry
+        ConsoleCommandsHandler.register("reload", new ReloadCommand());
     }
 
     @OnOpen
@@ -40,7 +45,7 @@ public class MyWebSocketServer {
             server.start();
             System.out.println("Servidor WebSocket iniciado en ws://localhost:8080/ws");
             init();
-            Thread.currentThread().join();
+            ConsoleCommandsHandler.startConsoleListener();
         } catch (Exception e) {
             e.printStackTrace();
         }

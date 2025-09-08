@@ -1,7 +1,7 @@
 package me.imsergioh.testingsweb.object.command;
 
 import me.imsergioh.testingsweb.client.ClientConnection;
-import me.imsergioh.testingsweb.handler.CommandsHandler;
+import me.imsergioh.testingsweb.handler.ClientCommandsHandler;
 import me.imsergioh.testingsweb.object.request.GenericRequest;
 import me.imsergioh.testingsweb.object.request.IGenericRequest;
 import me.imsergioh.testingsweb.object.request.RequestType;
@@ -30,7 +30,7 @@ public class CommandRequest extends GenericRequest {
 
     @Override
     public void handle(ClientConnection connection) {
-        CommandsHandler.performCommand(connection, id(), label);
+        ClientCommandsHandler.performCommand(connection, id(), label);
     }
 
     @Override

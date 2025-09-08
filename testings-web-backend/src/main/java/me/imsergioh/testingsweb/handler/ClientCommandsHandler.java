@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-public class CommandsHandler {
+public class ClientCommandsHandler {
 
     private static final Map<String, ClientCommand> commands = new HashMap<>();
 
@@ -21,7 +21,7 @@ public class CommandsHandler {
         String name = getCommandName(label);
         ClientCommand command = commands.get(name);
         if (command == null) {
-            System.out.println("Unknown command: " + name);
+            System.out.println("Unknown client command: " + name);
             return;
         }
         command.performCommand(connection, requestId, getCommandArgs(label));
