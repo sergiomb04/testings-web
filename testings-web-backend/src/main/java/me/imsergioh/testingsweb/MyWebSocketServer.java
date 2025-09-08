@@ -6,6 +6,7 @@ import jakarta.websocket.OnOpen;
 import jakarta.websocket.Session;
 import jakarta.websocket.server.ServerEndpoint;
 import me.imsergioh.testingsweb.client.ClientConnection;
+import me.imsergioh.testingsweb.command.client.GetTestCommand;
 import me.imsergioh.testingsweb.command.client.TestCommand;
 import me.imsergioh.testingsweb.command.server.ReloadCommand;
 import me.imsergioh.testingsweb.handler.ClientCommandsHandler;
@@ -18,7 +19,7 @@ public class MyWebSocketServer {
 
     public static void init() {
         // Client-Commands Registry
-        ClientCommandsHandler.register(new TestCommand());
+        ClientCommandsHandler.register(new TestCommand(), new GetTestCommand());
 
         // Server-Commands Registry
         ConsoleCommandsHandler.register("reload", new ReloadCommand());

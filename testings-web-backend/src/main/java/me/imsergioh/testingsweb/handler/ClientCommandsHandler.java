@@ -24,7 +24,7 @@ public class ClientCommandsHandler {
             System.out.println("Unknown client command: " + name);
             return;
         }
-        command.performCommand(connection, requestId, getCommandArgs(label));
+        command.performCommand(connection, requestId, label, getCommandArgs(label));
     }
 
     private static String[] getCommandArgs(String label) {

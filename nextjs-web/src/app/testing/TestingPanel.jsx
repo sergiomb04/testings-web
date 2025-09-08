@@ -6,22 +6,19 @@ import {useEffect, useState} from "react";
 
 export default function TestingPanel() {
 
-    const [testFront, setTestFront] = useState(null)
+    const [content, setContent] = useState("")
 
     useEffect(() => {
         wsClient.connect("ws://localhost:8080/ws");
 
         const onOpen = () => {
-            wsClient.sendCommand("test");
+            wsClient.sendCommand("getTest");
         }
 
         const onSyncData = (payload) => {
-            setTestFront("Contador:" + payload.count);
+            setContent(payload.text);
         }
         const onCommand = (cmd) => {
-            if (cmd.label.startsWith("testFrontend ")) {
-                setTestFront(cmd.label.replace("testFrontend ", ""))
-            }
             console.log("📥 Comando:", cmd);
         }
 
@@ -37,12 +34,19 @@ export default function TestingPanel() {
         };
     }, []);
 
+    function updateContent(value) {
+        setContent(value);
+        const fixedValue = value.isEmpty ? " " : value;
+        wsClient.sendCommand("test " + fixedValue)
+    }
+
     return (
-        <div>
-            <PanelButton displayText={"Test tarea"} onClick={() => wsClient.sendCommand("test")}/>
-
-            {testFront && <p>{testFront}</p>}
-
+        <div className={"grid"}>
+            <textarea
+                className={"min-h-64 rounded-xl bg-neutral-700 border-1 p-2 focus:outline-none"}
+                value={content}
+                onChange={(e) => updateContent(e.target.value)}
+            />
         </div>
     )
 }

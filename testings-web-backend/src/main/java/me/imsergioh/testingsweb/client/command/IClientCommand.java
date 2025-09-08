@@ -6,6 +6,6 @@ import java.util.UUID;
 
 public interface IClientCommand {
 
-    void performCommand(ClientConnection connection, UUID requestId, String[] args);
+    void performCommand(ClientConnection connection, UUID requestId, String label, String[] args);
 
 }
