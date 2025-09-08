@@ -1,7 +1,7 @@
 "use client"
 
 import wsClient from "@/lib/wsClient";
-import {useEffect, useState} from "react";
+import {useEffect} from "react";
 import PanelButton from "@/app/components/button/PanelButton";
 import {toast} from "react-hot-toast";
 
