@@ -11,9 +11,9 @@ export default function TestingPanel() {
     useEffect(() => {
         wsClient.connect("ws://localhost:8080/ws");
 
-        wsClient.on("open", () => {
+        const onOpen = () => {
             wsClient.sendCommand("test");
-        })
+        }
 
         const onSyncData = (payload) => {
             setTestFront("Contador:" + payload.count);
@@ -25,11 +25,13 @@ export default function TestingPanel() {
             console.log("📥 Comando:", cmd);
         }
 
+        wsClient.on("open", onOpen);
         wsClient.on("SYNC_DATA", onSyncData);
         wsClient.on("command", onCommand);
 
         return () => {
-            wsClient.off("RESPONSE", onSyncData);
+            wsClient.off("open", onOpen);
+            wsClient.off("SYNC_DATA", onSyncData);
             wsClient.off("command", onCommand);
             wsClient.disconnect();
         };
