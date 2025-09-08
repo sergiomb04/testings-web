@@ -38,10 +38,10 @@ public class CommandRequest extends GenericRequest {
         return RequestType.COMMAND;
     }
 
+    @Override
     public Document toDocument() {
-        Document doc = new Document();
-        doc.append("type", RequestType.COMMAND.name());
-        doc.append(LABEL_FIELD, label);
-        return doc;
+        return super.toDocument()
+                .append("type", RequestType.COMMAND.name())
+                .append(LABEL_FIELD, label);
     }
 }
