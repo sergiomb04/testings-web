@@ -55,7 +55,6 @@ public class ClientConnection {
 
     private void sendRequest(IGenericRequest request)  {
         try {
-            System.out.println("SENDING: " + request.toDocument().toJson());
             session.getBasicRemote().sendText(request.toDocument().toJson());
         } catch (IOException e) {
             disconnect(e);
