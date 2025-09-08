@@ -2,6 +2,7 @@ import {Geist, Geist_Mono} from "next/font/google";
 import "./globals.css";
 import NavbarComponent from "@/app/components/navbar/NavbarComponent";
 import PageTransitionWrapper from "@/app/components/transition/PageTransitionWrapper";
+import {Toaster} from "react-hot-toast";
 
 const geistSans = Geist({
     variable: "--font-geist-sans",
@@ -28,6 +29,7 @@ export default function RootLayout({children}) {
         <NavbarComponent/>
 
         <main className={`font-sans m-4`}>
+            <Toaster />
             <PageTransitionWrapper>
                 {children}
             </PageTransitionWrapper>

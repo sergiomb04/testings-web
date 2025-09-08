@@ -3,7 +3,7 @@
 import wsClient from "@/lib/wsClient";
 import {useEffect, useState} from "react";
 import PanelButton from "@/app/components/button/PanelButton";
-import {toast, Toaster} from "react-hot-toast";
+import {toast} from "react-hot-toast";
 
 export default function TestingPage() {
 
@@ -23,7 +23,7 @@ export default function TestingPage() {
         return () => {
             wsClient.off("event", onEvent);
             wsClient.off("RESPONSE", onResponse);
-            wsClient.off("ERROR", onResponse);
+            wsClient.off("ERROR", onError);
             wsClient.off("command", onCommand);
             wsClient.disconnect();
         };
@@ -32,8 +32,6 @@ export default function TestingPage() {
     return (
         <div>
             <h1 className={"font-bold pb-8"}>Testing</h1>
-
-            <Toaster />
 
             <div>
                 <PanelButton displayText={"Test tarea"} onClick={() => wsClient.sendCommand("test arg1 arg2 arg3")}/>
