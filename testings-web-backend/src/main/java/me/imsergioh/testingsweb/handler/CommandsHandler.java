@@ -5,6 +5,7 @@ import me.imsergioh.testingsweb.client.command.ClientCommand;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 public class CommandsHandler {
 
@@ -16,14 +17,14 @@ public class CommandsHandler {
         }
     }
 
-    public static void performCommand(ClientConnection connection, String label) {
+    public static void performCommand(ClientConnection connection, UUID requestId, String label) {
         String name = getCommandName(label);
         ClientCommand command = commands.get(name);
         if (command == null) {
             System.out.println("Unknown command: " + name);
             return;
         }
-        command.performCommand(connection, getCommandArgs(label));
+        command.performCommand(connection, requestId, getCommandArgs(label));
     }
 
     private static String[] getCommandArgs(String label) {

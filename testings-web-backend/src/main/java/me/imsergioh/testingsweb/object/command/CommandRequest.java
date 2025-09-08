@@ -30,7 +30,7 @@ public class CommandRequest extends GenericRequest {
 
     @Override
     public void handle(ClientConnection connection) {
-        CommandsHandler.performCommand(connection, label);
+        CommandsHandler.performCommand(connection, id(), label);
     }
 
     @Override

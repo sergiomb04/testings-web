@@ -24,7 +24,11 @@ public class ClientConnection {
     private final Session session;
 
     private ClientConnection(Session session)  {
-        this.id = session.getId();
+        this(session.getId(), session);
+    }
+
+    public ClientConnection(String sessionId, Session session) {
+        this.id = sessionId;
         this.session = session;
         clients.put(id, this);
         System.out.println("Nueva conexión: " + id);
@@ -41,8 +45,13 @@ public class ClientConnection {
         sendRequest(new EventRequest(UUID.randomUUID(), payload));
     }
 
+    public void sendLogResponse(UUID requestId, String logMessage) {
+        sendEvent(EventType.RESPONSE, new Document("id", requestId.toString()).append("message", logMessage));
+    }
+
     private void sendRequest(IGenericRequest request)  {
         try {
+            System.out.println("SENDING: " + request.toDocument().toJson());
             session.getBasicRemote().sendText(request.toDocument().toJson());
         } catch (IOException e) {
             disconnect(e);

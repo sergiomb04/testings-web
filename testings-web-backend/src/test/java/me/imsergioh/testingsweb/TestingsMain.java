@@ -1,5 +1,6 @@
 package me.imsergioh.testingsweb;
 
+import me.imsergioh.testingsweb.client.ClientConnection;
 import me.imsergioh.testingsweb.handler.RequestsHandler;
 import me.imsergioh.testingsweb.object.command.CommandRequest;
 import me.imsergioh.testingsweb.object.event.EventRequest;
@@ -13,8 +14,15 @@ public class TestingsMain {
     public static void main(String[] args) {
         MyWebSocketServer.init();
 
-        testCommandRequest();
+        testEventLogRequest();
     }
+
+    // ✅ (Funcional para envío aunque error porqué session es null!)
+    private static void testEventLogRequest() {
+        ClientConnection connection = new ClientConnection(UUID.randomUUID().toString(), null);
+        connection.sendLogResponse(UUID.randomUUID(), "Hola mundo!");
+    }
+
 
     // ✅
     private static void testEventRequest() {
