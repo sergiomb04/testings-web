@@ -8,14 +8,12 @@ class WSClient {
         this.socket = null;
         this.listeners = {};
         this.url = null;
-        this.shouldReconnect = false;
     }
 
     connect(url) {
         if (this.socket) return;
 
         this.url = url;
-        this.shouldReconnect = true;
 
         this.socket = new WebSocket(url);
 
@@ -46,14 +44,13 @@ class WSClient {
         };
 
         this.socket.onclose = () => {
+            if (this.socket.readyState === WebSocket.CLOSED) {
+                console.error("❌ No se pudo conectar al servidor");
+                onError({ message: "No se pudo conectar al WebSocket" });
+            }
             console.log("⚠️ Conexión cerrada");
             this.emit("close");
             this.socket = null;
-
-            if (this.shouldReconnect) {
-                console.log("🔄 Reintentando conexión en 2s...");
-                setTimeout(() => this.connect(this.url), 2000);
-            }
         };
 
         this.socket.onerror = (err) => {
@@ -63,7 +60,6 @@ class WSClient {
 
     disconnect() {
         wsClient.off("ERROR");
-        this.shouldReconnect = false;
         if (this.socket) {
             this.socket.close();
             this.socket = null;
@@ -97,6 +93,7 @@ class WSClient {
         if (this.socket?.readyState === WebSocket.OPEN) {
             this.socket.send(JSON.stringify(json));
         } else {
+            onError({message: "No estás conectado."})
             console.warn("⚠️ Socket no está abierto");
         }
     }
