@@ -49,3 +49,8 @@ tasks.shadowJar {
     archiveClassifier.set("")       // vacío = sin "-all"
 }
 
+tasks.named<JavaExec>("run") {
+    standardInput = System.`in`
+}
+
+
