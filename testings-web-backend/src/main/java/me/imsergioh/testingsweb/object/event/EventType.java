@@ -2,7 +2,7 @@ package me.imsergioh.testingsweb.object.event;
 
 public enum EventType {
 
-    RESPONSE, SYNC_DATA, TEST;
+    RESPONSE, SYNC_DATA, ERROR;
 
     public static EventType parse(String input) {
         try {

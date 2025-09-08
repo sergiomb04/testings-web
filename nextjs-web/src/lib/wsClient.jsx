@@ -23,7 +23,6 @@ class WSClient {
         this.socket.onmessage = (event) => {
             try {
                 const data = JSON.parse(event.data);
-                console.log("📩 Recibido:", data);
 
                 // Emite según el tipo
                 if (data.type === "EVENT") {

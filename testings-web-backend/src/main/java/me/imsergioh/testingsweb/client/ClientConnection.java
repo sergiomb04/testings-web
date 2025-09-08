@@ -45,8 +45,12 @@ public class ClientConnection {
         sendRequest(new EventRequest(UUID.randomUUID(), payload));
     }
 
-    public void sendLogResponse(UUID requestId, String logMessage) {
-        sendEvent(EventType.RESPONSE, new Document("id", requestId.toString()).append("message", logMessage));
+    public void sendLogResponse(UUID requestId, String message) {
+        sendEvent(EventType.RESPONSE, new Document("id", requestId.toString()).append("message", message));
+    }
+
+    public void sendErrorResponse(UUID requestId, String message) {
+        sendEvent(EventType.ERROR, new Document("id", requestId.toString()).append("message", message));
     }
 
     private void sendRequest(IGenericRequest request)  {
