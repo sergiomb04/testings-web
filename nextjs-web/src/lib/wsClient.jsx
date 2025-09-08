@@ -44,7 +44,7 @@ class WSClient {
         };
 
         this.socket.onclose = () => {
-            if (this.socket.readyState === WebSocket.CLOSED) {
+            if (this.socket?.readyState === WebSocket.CLOSED) {
                 console.error("❌ No se pudo conectar al servidor");
                 onError({ message: "No se pudo conectar al WebSocket" });
             }

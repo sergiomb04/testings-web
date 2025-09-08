@@ -11,7 +11,13 @@ export default function TestingPanel() {
     useEffect(() => {
         wsClient.connect("ws://localhost:8080/ws");
 
-        const onResponse = (payload) => console.log("📥 Respuesta:", payload.message);
+        wsClient.on("open", () => {
+            wsClient.sendCommand("test");
+        })
+
+        const onSyncData = (payload) => {
+            setTestFront("Contador:" + payload.count);
+        }
         const onCommand = (cmd) => {
             if (cmd.label.startsWith("testFrontend ")) {
                 setTestFront(cmd.label.replace("testFrontend ", ""))
@@ -19,11 +25,11 @@ export default function TestingPanel() {
             console.log("📥 Comando:", cmd);
         }
 
-        wsClient.on("RESPONSE", onResponse);
+        wsClient.on("SYNC_DATA", onSyncData);
         wsClient.on("command", onCommand);
 
         return () => {
-            wsClient.off("RESPONSE", onResponse);
+            wsClient.off("RESPONSE", onSyncData);
             wsClient.off("command", onCommand);
             wsClient.disconnect();
         };
@@ -31,7 +37,7 @@ export default function TestingPanel() {
 
     return (
         <div>
-            <PanelButton displayText={"Test tarea"} onClick={() => wsClient.sendCommand("test test-task")}/>
+            <PanelButton displayText={"Test tarea"} onClick={() => wsClient.sendCommand("test")}/>
 
             {testFront && <p>{testFront}</p>}
 

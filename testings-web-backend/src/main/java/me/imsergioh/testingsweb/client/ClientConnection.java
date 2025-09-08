@@ -96,6 +96,10 @@ public class ClientConnection {
     }
 
     public static ClientConnection get(Session session) {
-        return clients.get(session.getId());
+        return get(session.getId());
+    }
+
+    public static ClientConnection get(String sessionId) {
+        return clients.get(sessionId);
     }
 }
