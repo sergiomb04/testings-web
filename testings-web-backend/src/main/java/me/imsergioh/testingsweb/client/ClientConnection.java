@@ -64,12 +64,14 @@ public class ClientConnection {
     public void disconnect(Exception exception) {
         try {
             session.close();
-            System.out.println("Conexión cerrada: " + session.getId());
             if (exception != null) exception.printStackTrace(System.out);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        clients.remove(id);
+        ClientConnection connection = clients.remove(id);
+        if (connection != null) {
+            System.out.println("Conexión cerrada: " + session.getId());
+        }
     }
 
     public static void broadcast(IGenericRequest request) {
