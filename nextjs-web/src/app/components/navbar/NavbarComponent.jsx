@@ -4,6 +4,7 @@ import {LayoutGroup, motion} from "framer-motion";
 import Link from "next/link";
 import {useEffect, useState} from "react";
 import NavLogoComp from "@/app/components/navbar/NavLogoComp";
+import {useUser} from "@/app/context/UserContext";
 
 const links = [
     {href: "/", title: "Home"},
@@ -23,6 +24,8 @@ export default function NavbarComponent() {
     useEffect(() => {
         setMobileNavOpen(false);
     }, [pathname]);
+
+    const {user} = useUser();
 
     return (
         <div className="flex items-center justify-between min-md:justify-start min-md:gap-12 w-full p-2">

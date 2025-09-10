@@ -10,6 +10,7 @@ import javax.crypto.SecretKey;
 import java.nio.charset.StandardCharsets;
 import java.security.Key;
 import java.util.Date;
+import java.util.UUID;
 import java.util.function.Function;
 
 @Service
@@ -17,14 +18,14 @@ public class JwtService {
 
     private static final long EXPIRATION_MS = 1000 * 60 * 30; // 30 min
 
-    private final Key key = Keys.hmacShaKeyFor(getJWTSecret().getBytes());
+    private final Key key = Keys.hmacShaKeyFor(getJWTSecret().getBytes(StandardCharsets.UTF_8));
 
     public String generateToken(User user) {
         return Jwts.builder()
-                .subject(user.id().toString())
-                .claim("username", user.username())
-                .issuedAt(new Date())
-                .expiration(new Date(System.currentTimeMillis() + EXPIRATION_MS))
+                .setSubject(user.username())
+                .claim("id", user.id().toString())
+                .setIssuedAt(new Date())
+                .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_MS))
                 .signWith(key)
                 .compact();
     }
@@ -33,8 +34,8 @@ public class JwtService {
         return extractClaim(token, Claims::getSubject);
     }
 
-    public String extractRole(String token) {
-        return extractAllClaims(token).get("role", String.class);
+    public UUID extractId(String token) {
+        return UUID.fromString(extractAllClaims(token).get("id", String.class));
     }
 
     public boolean isTokenValid(String token, String username) {
@@ -54,15 +55,15 @@ public class JwtService {
     }
 
     private Claims extractAllClaims(String token) {
-        JwtParser parser = Jwts.parser()
-                .verifyWith(getSigningKey())   // aquí va el SecretKey
-                .build();
-
-        return parser.parseSignedClaims(token).getPayload();
+        return Jwts.parser()
+                .setSigningKey(getSigningKey())
+                .build()
+                .parseClaimsJws(token)
+                .getBody();
     }
 
     private SecretKey getSigningKey() {
-        return Keys.hmacShaKeyFor(getJWTSecret().getBytes(StandardCharsets.UTF_8));
+        return Keys.hmacShaKeyFor(getJWTSecret().getBytes());
     }
 
     private static String getJWTSecret() {

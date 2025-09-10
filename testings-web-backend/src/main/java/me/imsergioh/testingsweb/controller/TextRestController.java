@@ -2,6 +2,7 @@ package me.imsergioh.testingsweb.controller;
 
 import lombok.Getter;
 import me.imsergioh.testingsweb.service.TextService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
@@ -11,8 +12,8 @@ import java.util.Map;
 public class TextRestController {
 
     @GetMapping("/get")
-    public Map<String, Object> getText() {
-        return Map.of("text", TextService.getInstance().getText());
+    public ResponseEntity<?> getText() {
+        return ResponseEntity.ok().body(TextService.getInstance().getResponse());
     }
 
     @PostMapping("/set")

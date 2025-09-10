@@ -52,7 +52,8 @@ public class MyWebSocketServer {
     }
 
     private static void testing() {
-        System.out.println("Password: " +  UserService.getInstance().getHashedPassword("password123"));
+        //System.out.println("Password: " +  UserService.getInstance().getHashedPassword("password123"));
+        //UserService.getInstance().registerUser("jancarlo", "MeEncantaImSergioh123LOAMO");
     }
 
 }

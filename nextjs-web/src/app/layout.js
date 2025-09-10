@@ -3,6 +3,7 @@ import "./globals.css";
 import NavbarComponent from "@/app/components/navbar/NavbarComponent";
 import PageTransitionWrapper from "@/app/components/transition/PageTransitionWrapper";
 import {Toaster} from "react-hot-toast";
+import {UserProvider} from "@/app/context/UserContext";
 
 const geistSans = Geist({
     variable: "--font-geist-sans",
@@ -26,14 +27,16 @@ export default function RootLayout({children}) {
             className={`${geistSans.variable} ${geistMono.variable} antialiased m-4`}
         >
 
-        <NavbarComponent/>
+        <UserProvider>
+            <NavbarComponent/>
 
-        <main className={`font-sans m-4`}>
-            <Toaster />
-            <PageTransitionWrapper>
-                {children}
-            </PageTransitionWrapper>
-        </main>
+            <main className={`font-sans m-4`}>
+                <Toaster />
+                <PageTransitionWrapper>
+                    {children}
+                </PageTransitionWrapper>
+            </main>
+        </UserProvider>
 
 
         </body>
