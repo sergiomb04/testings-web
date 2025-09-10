@@ -29,6 +29,11 @@ dependencies {
     testAnnotationProcessor("org.projectlombok:lombok:1.18.30")
 
     implementation("org.mongodb:bson:5.5.1")
+
+    implementation("io.jsonwebtoken:jjwt-api:0.11.5")
+    runtimeOnly("io.jsonwebtoken:jjwt-impl:0.11.5")
+
+    implementation("org.mongodb:mongodb-driver-sync:5.5.1")
 }
 
 application {
