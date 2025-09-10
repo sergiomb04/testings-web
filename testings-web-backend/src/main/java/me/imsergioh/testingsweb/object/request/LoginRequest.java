@@ -1,2 +1,5 @@
-package me.imsergioh.testingsweb.object.request;public class LoginRequest {
+package me.imsergioh.testingsweb.object.request;
+
+public record LoginRequest(String username, String password) {
+
 }

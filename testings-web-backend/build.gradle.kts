@@ -16,6 +16,7 @@ repositories {
 dependencies {
     implementation ("org.springframework.boot:spring-boot-starter-web")
     implementation ("org.springframework.boot:spring-boot-starter-websocket")
+    implementation("org.springframework.security:spring-security-crypto:6.3.1")
     testImplementation ("org.springframework.boot:spring-boot-starter-test")
 
     implementation ("org.glassfish.tyrus:tyrus-server:2.1.1")
@@ -28,8 +29,9 @@ dependencies {
     testCompileOnly("org.projectlombok:lombok:1.18.30")
     testAnnotationProcessor("org.projectlombok:lombok:1.18.30")
 
-    implementation("io.jsonwebtoken:jjwt-api:0.11.5")
-    runtimeOnly("io.jsonwebtoken:jjwt-impl:0.11.5")
+    implementation("io.jsonwebtoken:jjwt-api:0.13.0")
+    implementation("io.jsonwebtoken:jjwt-impl:0.13.0")
+    implementation("io.jsonwebtoken:jjwt-gson:0.13.0")
 
     implementation("org.mongodb:mongodb-driver-sync:5.5.1")
     implementation("org.mongodb:bson:5.5.1")
