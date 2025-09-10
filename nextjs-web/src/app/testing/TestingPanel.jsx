@@ -1,6 +1,5 @@
 "use client"
 
-import PanelButton from "@/app/components/button/PanelButton";
 import wsClient from "@/lib/wsClient";
 import {useEffect, useState} from "react";
 

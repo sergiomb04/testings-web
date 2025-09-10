@@ -2,6 +2,8 @@ plugins {
     id("java")
     id("application")
     id("com.github.johnrengelman.shadow") version "8.1.1"
+    id ("org.springframework.boot") version "3.3.4"
+    id ("io.spring.dependency-management") version "1.1.6"
 }
 
 group = "me.imsergioh.testingsweb"
@@ -12,7 +14,9 @@ repositories {
 }
 
 dependencies {
-    implementation ("jakarta.websocket:jakarta.websocket-api:2.1.1")
+    implementation ("org.springframework.boot:spring-boot-starter-web")
+    implementation ("org.springframework.boot:spring-boot-starter-websocket")
+    testImplementation ("org.springframework.boot:spring-boot-starter-test")
 
     implementation ("org.glassfish.tyrus:tyrus-server:2.1.1")
     implementation ("org.glassfish.tyrus:tyrus-container-grizzly-server:2.1.1")

@@ -7,6 +7,8 @@ import me.imsergioh.testingsweb.object.event.EventRequest;
 import me.imsergioh.testingsweb.object.event.EventType;
 import me.imsergioh.testingsweb.object.request.IGenericRequest;
 import org.bson.Document;
+import org.springframework.web.socket.TextMessage;
+import org.springframework.web.socket.WebSocketSession;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -21,13 +23,13 @@ public class ClientConnection {
     private static final Map<String, ClientConnection> clients = new HashMap<>();
 
     private final String id;
-    private final Session session;
+    private final WebSocketSession session;
 
-    private ClientConnection(Session session)  {
+    private ClientConnection(WebSocketSession session)  {
         this(session.getId(), session);
     }
 
-    public ClientConnection(String sessionId, Session session) {
+    public ClientConnection(String sessionId, WebSocketSession session) {
         this.id = sessionId;
         this.session = session;
         clients.put(id, this);
@@ -53,9 +55,9 @@ public class ClientConnection {
         sendEvent(EventType.ERROR, new Document("id", requestId.toString()).append("message", message));
     }
 
-    private void sendRequest(IGenericRequest request)  {
+    public void sendRequest(IGenericRequest request) {
         try {
-            session.getBasicRemote().sendText(request.toDocument().toJson());
+            session.sendMessage(new TextMessage(request.toDocument().toJson()));
         } catch (IOException e) {
             disconnect(e);
             throw new RuntimeException(e);
@@ -87,15 +89,15 @@ public class ClientConnection {
         clients.values().forEach(consumer);
     }
 
-    public static void unregister(Session session) {
+    public static void unregister(WebSocketSession session) {
         clients.get(session.getId()).disconnect();
     }
 
-    public static void register(Session session) {
+    public static void register(WebSocketSession session) {
         new ClientConnection(session);
     }
 
-    public static ClientConnection get(Session session) {
+    public static ClientConnection get(WebSocketSession session) {
         return get(session.getId());
     }
 
