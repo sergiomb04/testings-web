@@ -4,11 +4,13 @@ import {useState} from "react";
 import {toast} from "react-hot-toast";
 import PanelButton from "@/app/components/button/PanelButton";
 import {useRouter} from "next/navigation";
+import {useUser} from "@/app/context/UserContext";
 
 export default function LoginComponent() {
     const router = useRouter();
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
+    const { refreshUser } = useUser();
 
     const login = async (username, password) => {
         try {
@@ -25,6 +27,7 @@ export default function LoginComponent() {
             }
 
             toast.success("Inicio de sesión completado.");
+            await refreshUser();
             router.push('/')
         } catch (error) {
             toast.error("Error de conexión.");

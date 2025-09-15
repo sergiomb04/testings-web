@@ -5,9 +5,11 @@ export default function TestingPage() {
     return (
         <div>
             <h1 className={"font-bold pb-8"}>Testing</h1>
-            <InitialDataComponentTest />
+            <div className={"flex flex-col gap-8"}>
+                <InitialDataComponentTest />
 
-            <TestingPanel />
+                <TestingPanel />
+            </div>
         </div>
     )
 }

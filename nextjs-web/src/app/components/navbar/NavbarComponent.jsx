@@ -21,23 +21,11 @@ export default function NavbarComponent() {
     const pathname = usePathname();
     const [hovered, setHovered] = useState(null);
     const [mobileNavOpen, setMobileNavOpen] = useState(false);
-    const {user} = useUser();
-    const [userNavComp, setUserNavComp] = useState(null);
+    const {user, setUser} = useUser();
 
     useEffect(() => {
         setMobileNavOpen(false);
     }, [pathname]);
-
-    useEffect(() => {
-        setUserNavComp(user ?
-            <p>{user.username}</p>
-            :
-            <button className={"bg-blue-400 p-4 rounded-2xl cursor-pointer"}
-                    onClick={() => router.push('/login')}>
-                Login
-            </button>
-        )
-    }, [user])
 
     return (
         <div className="flex items-center justify-between min-md:gap-12 w-full p-2">
@@ -62,7 +50,14 @@ export default function NavbarComponent() {
                 </ul>
 
                 {/* USER LOGIN / INFO */}
-                {userNavComp}
+                {user ?
+                    <p>{user.username}</p>
+                    :
+                    <button className={"bg-blue-400 p-4 rounded-2xl cursor-pointer"}
+                            onClick={() => router.push('/login')}>
+                        Login
+                    </button>
+                }
             </LayoutGroup>
 
             {/* Botón hamburguesa mobile */}
