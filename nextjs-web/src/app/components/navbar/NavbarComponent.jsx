@@ -1,5 +1,5 @@
 "use client";
-import {usePathname} from "next/navigation";
+import {usePathname, useRouter} from "next/navigation";
 import {LayoutGroup, motion} from "framer-motion";
 import Link from "next/link";
 import {useEffect, useState} from "react";
@@ -17,15 +17,27 @@ const links = [
 ];
 
 export default function NavbarComponent() {
+    const router = useRouter();
     const pathname = usePathname();
     const [hovered, setHovered] = useState(null);
     const [mobileNavOpen, setMobileNavOpen] = useState(false);
+    const {user} = useUser();
+    const [userNavComp, setUserNavComp] = useState(null);
 
     useEffect(() => {
         setMobileNavOpen(false);
     }, [pathname]);
 
-    const {user} = useUser();
+    useEffect(() => {
+        setUserNavComp(user ?
+            <p>{user.username}</p>
+            :
+            <button className={"bg-blue-400 p-4 rounded-2xl cursor-pointer"}
+                    onClick={() => router.push('/login')}>
+                Login
+            </button>
+        )
+    }, [user])
 
     return (
         <div className="flex items-center justify-between min-md:justify-start min-md:gap-12 w-full p-2">
@@ -48,6 +60,9 @@ export default function NavbarComponent() {
                         />
                     ))}
                 </ul>
+
+                {/* USER LOGIN / INFO */}
+                {userNavComp}
             </LayoutGroup>
 
             {/* Botón hamburguesa mobile */}

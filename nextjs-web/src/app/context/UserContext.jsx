@@ -17,7 +17,7 @@ export function UserProvider({children, initialUser}) {
                 if (data) {
                     setUser(data);
                 } else {
-                    setUser(null); // no hay token
+                    setUser(null);
                 }
             })
             .catch(() => {

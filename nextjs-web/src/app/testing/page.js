@@ -1,5 +1,4 @@
 import InitialDataComponentTest from "@/app/testing/InitialDataComponentTest";
-import SetTextComponent from "@/app/testing/SetTextComponent";
 import TestingPanel from "@/app/testing/TestingPanel";
 
 export default function TestingPage() {
