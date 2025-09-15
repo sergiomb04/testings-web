@@ -3,8 +3,10 @@
 import {useState} from "react";
 import {toast} from "react-hot-toast";
 import PanelButton from "@/app/components/button/PanelButton";
+import {useRouter} from "next/navigation";
 
 export default function LoginComponent() {
+    const router = useRouter();
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
 
@@ -23,6 +25,7 @@ export default function LoginComponent() {
             }
 
             toast.success("Inicio de sesión completado.");
+            router.push('/')
         } catch (error) {
             toast.error("Error de conexión.");
             console.error(error);
