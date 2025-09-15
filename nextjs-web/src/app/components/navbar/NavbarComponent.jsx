@@ -40,7 +40,7 @@ export default function NavbarComponent() {
     }, [user])
 
     return (
-        <div className="flex items-center justify-between min-md:justify-start min-md:gap-12 w-full p-2">
+        <div className="flex items-center justify-between min-md:gap-12 w-full p-2">
             <NavLogoComp/>
 
             {/* Links desktop */}
