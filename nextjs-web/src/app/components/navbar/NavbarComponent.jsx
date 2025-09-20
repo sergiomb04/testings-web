@@ -53,9 +53,9 @@ export default function NavbarComponent() {
                 {user ?
                     <p>{user.username}</p>
                     :
-                    <button className={"bg-blue-400 p-4 rounded-2xl cursor-pointer"}
-                            onClick={() => router.push('/login')}>
-                        Login
+                    <button className={"bg-neutral-100 text-black px-4 py-2 rounded-xl cursor-pointer"}
+                            onClick={() => router.push('/register')}>
+                        Register
                     </button>
                 }
             </LayoutGroup>

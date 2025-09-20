@@ -17,31 +17,26 @@ public class UserController {
     private static JwtService jwtService;
 
     @GetMapping
-    public ResponseEntity<?> getData(HttpServletRequest request) {
-        String token = getToken(request);
+    public ResponseEntity<?> getPublicData(HttpServletRequest request) {
+        User user = getUserFromRequest(request);
 
-        String username = null;
-        boolean valid = false;
-
-        try {
-            username = getJwtService().extractUsername(token);
-            if (username != null)
-                valid = getJwtService().isTokenValid(token, username);
-        } catch (Exception ignore) {
-        }
-
-        if (username != null && valid) {
-            User user = UserService.getInstance().getByUsername(username);
-
-            if (user == null) {
-                return ResponseEntity.ok(null);
-            }
-
-            System.out.println("FETCHED USER " + user.username());
+        if (user != null) {
+            System.out.println("FETCHED FRONTEND USER " + user.username());
             return ResponseEntity.ok().body(user.getUserData());
-        } else {
-            return ResponseEntity.ok(null);
         }
+
+        return ResponseEntity.status(500).body(null);
+    }
+
+    @GetMapping("/admin")
+    public ResponseEntity<?> getBackendData(HttpServletRequest request) {
+        User user = getUserFromRequest(request);
+
+        if (user != null) {
+            System.out.println("FETCHED BACKEND USER " + user.username());
+            return ResponseEntity.ok().body(user.toDocument());
+        }
+        return ResponseEntity.status(500).body(null);
     }
 
     public static JwtService getJwtService() {
@@ -59,4 +54,27 @@ public class UserController {
         }
         return null;
     }
+
+    private User getUserFromRequest(HttpServletRequest request) {
+        String username = getUserNameFromRequest(request);
+        if (username == null) return null;
+        return UserService.getInstance().getByUsername(username);
+    }
+
+    private String getUserNameFromRequest(HttpServletRequest request) {
+        String token = getToken(request);
+
+        String username = null;
+        boolean valid = false;
+
+        try {
+            username = getJwtService().extractUsername(token);
+            if (username != null)
+                valid = getJwtService().isTokenValid(token, username);
+            if (valid) return username;
+        } catch (Exception ignore) {
+        }
+        return null;
+    }
+
 }

@@ -1,15 +1,15 @@
-import LoginComponent from "@/app/login/LoginComponent";
 import {cookies} from "next/headers";
+import RegisterComponent from "@/app/register/RegisterComponent";
 import {getValid} from "@/lib/AuthController";
 
-export default async function LoginPage() {
+export default async function RegisterPage() {
 
     const cookieStore = await cookies();
     const token = cookieStore.get("token")?.value || "";
     const valid = await getValid(token);
 
     return !valid ? (
-            <LoginComponent/>)
+            <RegisterComponent/>)
         : (
             <div>
                 <h1>Ya has iniciado sesión!!!</h1>
