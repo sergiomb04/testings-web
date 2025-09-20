@@ -34,7 +34,7 @@ public class UserController {
 
         if (user != null) {
             System.out.println("FETCHED BACKEND USER " + user.username());
-            return ResponseEntity.ok().body(user.toDocument());
+            return ResponseEntity.ok().body(UserService.getDocument(user));
         }
         return ResponseEntity.status(500).body(null);
     }
@@ -57,6 +57,7 @@ public class UserController {
 
     private User getUserFromRequest(HttpServletRequest request) {
         String username = getUserNameFromRequest(request);
+
         if (username == null) return null;
         return UserService.getInstance().getByUsername(username);
     }
