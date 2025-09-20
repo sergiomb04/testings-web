@@ -24,8 +24,9 @@ async function getUserData() {
 
 export default async function UserTextComponent() {
     const userData = await getUserData();
+    if (!userData) return null;
 
-    const text = userData.text;
+    const text = userData?.text;
 
     return (text ?
             <h1>TEXTO OPCIONAL USUARIO: {text}</h1> : null
