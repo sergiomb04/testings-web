@@ -51,6 +51,10 @@ public class UserService {
         return User.fromDB(document);
     }
 
+    public static Document getDocument(User user) {
+        return search(new Document("username", user.username()));
+    }
+
     private static Document search(Document query) {
         return getCollection().find(query).first();
     }
