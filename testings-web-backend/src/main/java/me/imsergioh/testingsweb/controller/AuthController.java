@@ -1,6 +1,7 @@
 package me.imsergioh.testingsweb.controller;
 
 import jakarta.servlet.http.HttpServletRequest;
+import me.imsergioh.testingsweb.object.request.ChangePasswordRequest;
 import me.imsergioh.testingsweb.object.request.LoginRequest;
 import me.imsergioh.testingsweb.object.user.User;
 import me.imsergioh.testingsweb.service.JwtService;
@@ -55,6 +56,25 @@ public class AuthController {
         } catch (Exception e) {
             return ResponseEntity.status(500).body(Map.of("message", "Could not register user. Internal error."));
         }
+    }
+
+    @PostMapping("/change-password")
+    public ResponseEntity<?> register(@RequestBody ChangePasswordRequest request) {
+        ResponseEntity<?> response = ResponseEntity.status(500).body(null);
+
+        UserService userService = UserService.getInstance();
+        User user = userService.getByUsername(request.username());
+        if (user == null) return response;
+
+        // No coincide old password
+        if (!userService.getPasswordEncoder().matches(request.oldPassword(), user.password())) return response;
+
+        String newToken = getJwtService().generateToken(user);
+
+        userService.changePassword(user, request.newPassword());
+
+        return ResponseEntity.ok(Map.of("token", newToken));
+
     }
 
     public static JwtService getJwtService() {

@@ -32,6 +32,13 @@ public class UserService {
         return user;
     }
 
+    public void changePassword(User user, String newPassword) {
+        Document filter = new Document("_id", user.id().toString());
+        Document update = new Document("$set", new Document("password", getHashedPassword(newPassword)));
+        getCollection().updateOne(filter, update);
+    }
+
+
     public String getHashedPassword(String rawPassword) {
         return passwordEncoder.encode(rawPassword);
     }

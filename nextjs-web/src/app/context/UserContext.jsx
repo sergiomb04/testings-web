@@ -42,7 +42,7 @@ export function UserProvider({ children, initialUser }) {
     };
 
     useEffect(() => {
-        if (token) refreshUser(); // solo llamar cuando tenemos token
+        refreshUser();
     }, [token]);
 
     return (
