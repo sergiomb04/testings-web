@@ -1,6 +1,6 @@
 import LoginComponent from "@/app/login/LoginComponent";
-import {cookies} from "next/headers";
 import {getValid} from "@/lib/AuthController";
+import {cookies} from "next/headers";
 
 export default async function LoginPage() {
 

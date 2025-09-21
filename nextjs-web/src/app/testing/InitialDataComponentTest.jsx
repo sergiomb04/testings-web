@@ -1,7 +1,7 @@
 import SetTextComponent from "@/app/testing/SetTextComponent";
 
 async function getText() {
-    const res = await fetch('http://localhost:8080/api/text/get', { cache: 'no-store' });
+    const res = await fetch('http://192.168.0.12:8080/api/text/get', { cache: 'no-store' });
     if (!res.ok) throw new Error('Failed to fetch text');
     return res.json();
 }

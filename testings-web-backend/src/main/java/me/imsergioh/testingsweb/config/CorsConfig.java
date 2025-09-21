@@ -2,8 +2,13 @@ package me.imsergioh.testingsweb.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
+import java.util.List;
 
 @Configuration
 public class CorsConfig {
@@ -13,11 +18,11 @@ public class CorsConfig {
         return new WebMvcConfigurer() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/**") // aplica a toda la app
-                        .allowedOrigins("http://localhost:3000") // frontend permitido
-                        .allowedMethods("*") // GET, POST, PUT, DELETE...
-                        .allowedHeaders("*")
-                        .allowCredentials(true); // permite cookies y credenciales
+                registry.addMapping("/**")
+                        .allowedOrigins("http://localhost:3000", "http://192.168.0.12:3000")
+                        .allowedMethods("GET", "POST", "PUT", "DELETE")
+                        .allowCredentials(true)
+                        .allowedHeaders("*");
             }
         };
     }

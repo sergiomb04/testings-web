@@ -44,7 +44,15 @@ public class UserController {
         return jwtService;
     }
 
-    private String getToken(HttpServletRequest request) {
+    private static String getBearerToken(HttpServletRequest request) {
+        String authHeader = request.getHeader("Authorization");
+        if (authHeader != null && authHeader.startsWith("Bearer ")) {
+            return authHeader.substring("Bearer ".length());
+        }
+        return null;
+    }
+
+    private static String getCookieToken(HttpServletRequest request) {
         Cookie[] cookies = request.getCookies();
         if (cookies != null) {
             for (Cookie cookie : cookies) {
@@ -55,15 +63,19 @@ public class UserController {
         return null;
     }
 
-    private User getUserFromRequest(HttpServletRequest request) {
+    public static User getUserFromRequest(HttpServletRequest request) {
         String username = getUserNameFromRequest(request);
 
         if (username == null) return null;
         return UserService.getInstance().getByUsername(username);
     }
 
-    private String getUserNameFromRequest(HttpServletRequest request) {
-        String token = getToken(request);
+    private static String getUserNameFromRequest(HttpServletRequest request) {
+        String token = getBearerToken(request);
+        System.out.println("DEBUG getUserNameFromRequest 1 " + token);
+        if (token == null) token = getCookieToken(request);
+        System.out.println("DEBUG getUserNameFromRequest 2 " + token);
+        if (token == null) return null;
 
         String username = null;
         boolean valid = false;

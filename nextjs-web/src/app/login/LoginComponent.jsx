@@ -14,11 +14,10 @@ export default function LoginComponent() {
 
     const login = async (username, password) => {
         try {
-            const res = await fetch('http://localhost:8080/api/auth/login', {
+            const res = await fetch('http://192.168.0.12:8080/api/auth/login', {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({username, password}),
-                credentials: 'include'
+                body: JSON.stringify({ username, password })
             });
 
             if (!res.ok) {
@@ -26,9 +25,13 @@ export default function LoginComponent() {
                 return;
             }
 
+            const data = await res.json();
+            localStorage.setItem("token", data.token);
+            document.cookie = `token=${data.token}; path=/;`;
+
             toast.success("Inicio de sesión completado.");
             await refreshUser();
-            router.push('/')
+            router.push('/');
         } catch (error) {
             toast.error("Error de conexión.");
             console.error(error);

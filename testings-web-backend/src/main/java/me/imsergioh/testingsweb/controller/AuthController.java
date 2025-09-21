@@ -1,5 +1,6 @@
 package me.imsergioh.testingsweb.controller;
 
+import jakarta.servlet.http.HttpServletRequest;
 import me.imsergioh.testingsweb.object.request.LoginRequest;
 import me.imsergioh.testingsweb.object.user.User;
 import me.imsergioh.testingsweb.service.JwtService;
@@ -17,23 +18,10 @@ public class AuthController {
     private static JwtService jwtService;
 
     @PostMapping("/verify")
-    public ResponseEntity<?> verify(@RequestHeader("Authorization") String authHeader) {
-        if (authHeader == null || !authHeader.startsWith("Bearer ")) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Token faltante o inválido");
-        }
+    public ResponseEntity<?> verify(HttpServletRequest request) {
+        User user = UserController.getUserFromRequest(request);
 
-        String token = authHeader.substring(7);
-
-        String username = null;
-        boolean valid = false;
-
-        try {
-            username = getJwtService().extractUsername(token);
-            if (username != null)
-                valid = getJwtService().isTokenValid(token, username);
-        } catch (Exception ignore) {}
-
-        if (username != null && valid) {
+        if (user != null) {
             return ResponseEntity.ok("{\"valid\":true}");
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("{\"valid\":false}");
@@ -46,8 +34,7 @@ public class AuthController {
         User user = userService.getByUsername(request.username());
         if (user != null && userService.getPasswordEncoder().matches(request.password(), user.password())) {
             String token = getJwtService().generateToken(user);
-            return ResponseEntity.ok().header("Set-Cookie", "token=" + token + "; HttpOnly; Secure; Path=/")
-                    .body(Map.of("token", token));
+            return ResponseEntity.ok(Map.of("token", token));
         }
         return ResponseEntity.status(401).build();
     }
@@ -64,8 +51,7 @@ public class AuthController {
         try {
             User user = userService.registerUser(request.username(), request.password());
             String token = getJwtService().generateToken(user);
-            return ResponseEntity.ok().header("Set-Cookie", "token=" + token + "; HttpOnly; Secure; Path=/")
-                    .body(Map.of("token", token));
+            return ResponseEntity.ok(Map.of("token", token));
         } catch (Exception e) {
             return ResponseEntity.status(500).body(Map.of("message", "Could not register user. Internal error."));
         }

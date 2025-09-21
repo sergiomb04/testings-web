@@ -5,12 +5,30 @@ const UserContext = createContext(null);
 
 export function UserProvider({ children, initialUser }) {
     const [user, setUser] = useState(initialUser);
+    const [token, setToken] = useState(null);
+
+    useEffect(() => {
+        let t;
+        if (typeof localStorage !== 'undefined') {
+            t = localStorage.getItem("token");
+        } else if (typeof document !== 'undefined') {
+            t = document.cookie
+                .split('; ')
+                .find(row => row.startsWith('token='))
+                ?.split('=')[1];
+        }
+        setToken(t);
+    }, []);
 
     const refreshUser = async () => {
+        if (!token) return; // evitar llamar sin token
         try {
-            const res = await fetch("http://localhost:8080/api/user", {
+            const res = await fetch(`http://192.168.0.12:8080/api/user`, {
                 method: "GET",
-                credentials: "include",
+                headers: {
+                    "Authorization": `Bearer ${token}`
+                },
+                cache: "no-store"
             });
             if (res.ok) {
                 const data = await res.json();
@@ -23,10 +41,9 @@ export function UserProvider({ children, initialUser }) {
         }
     };
 
-    // llamada inicial al montar
     useEffect(() => {
-        refreshUser();
-    }, []);
+        if (token) refreshUser(); // solo llamar cuando tenemos token
+    }, [token]);
 
     return (
         <UserContext.Provider value={{ user, setUser, refreshUser }}>
@@ -34,6 +51,7 @@ export function UserProvider({ children, initialUser }) {
         </UserContext.Provider>
     );
 }
+
 
 export function useUser() {
     return useContext(UserContext);

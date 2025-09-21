@@ -14,7 +14,7 @@ export default function RegisterComponent() {
 
     const register = async (username, password) => {
         try {
-            const res = await fetch('http://localhost:8080/api/auth/register', {
+            const res = await fetch('http://192.168.0.12:8080/api/auth/register', {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify({username, password}),
@@ -22,11 +22,15 @@ export default function RegisterComponent() {
             });
 
             if (!res.ok) {
-                toast.error("No se ha podido iniciar sesión.");
+                toast.error("No se ha podido registrar.");
                 return;
             }
 
-            toast.success("Inicio de sesión completado.");
+            const data = await res.json();
+            localStorage.setItem("token", data.token);
+            document.cookie = `token=${data.token}; path=/;`;
+
+            toast.success("Registro completado.");
             await refreshUser();
             router.push('/')
         } catch (error) {
