@@ -16,7 +16,6 @@ async function getUserData() {
     if (!res.ok) return null;
 
     const user = await res.json();
-    // filtra lo que NO quieres exponer
     return { id: user._id, username: user.username, role: user.role, text: user?.text };
 }
 
@@ -28,6 +27,8 @@ export default async function UserTextComponent() {
     const text = userData?.text;
 
     return (text ?
-            <h1>TEXTO OPCIONAL USUARIO: {text}</h1> : null
+            <h1>TEXTO OPCIONAL USUARIO: {text}</h1>
+            :
+            null
     )
 }

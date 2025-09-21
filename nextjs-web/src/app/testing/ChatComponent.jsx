@@ -10,7 +10,7 @@ export default function ChatComponent() {
 
     const connectWebSocket = () => {
         setError(false); // resetear error al intentar conectar
-        const ws = new WebSocket("ws://localhost:8080/ws");
+        const ws = new WebSocket(`${process.env.NEXT_PUBLIC_WS_URL}/ws`);
 
         ws.onopen = () => {
             console.log("Conectado al WebSocket");

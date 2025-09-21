@@ -10,23 +10,22 @@ class WSClient {
         this.url = null;
     }
 
-    connect(url) {
+    connect(url, retry = true) {
         if (this.socket) return;
 
         this.url = url;
-
         this.socket = new WebSocket(url);
 
         this.socket.onopen = () => {
             console.log("✅ Conectado al WebSocket");
             wsClient.on("ERROR", onError);
             this.emit("open");
+            this.reconnectAttempts = 0;
         };
 
         this.socket.onmessage = (event) => {
             try {
                 const data = JSON.parse(event.data);
-
                 if (data.type === "EVENT") {
                     this.emit("event", data);
                     if (data.payload?.eventType) {
@@ -44,13 +43,16 @@ class WSClient {
         };
 
         this.socket.onclose = () => {
-            if (this.socket?.readyState === WebSocket.CLOSED) {
-                console.error("❌ No se pudo conectar al servidor");
-                onError({ message: "No se pudo conectar al WebSocket" });
-            }
             console.log("⚠️ Conexión cerrada");
             this.emit("close");
             this.socket = null;
+
+            if (retry && (this.reconnectAttempts ?? 0) < 5) {
+                this.reconnectAttempts = (this.reconnectAttempts ?? 0) + 1;
+                const delay = 1000 * this.reconnectAttempts;
+                console.log(`🔁 Reintentando conectar en ${delay}ms...`);
+                setTimeout(() => this.connect(url, retry), delay);
+            }
         };
 
         this.socket.onerror = (err) => {
@@ -68,7 +70,7 @@ class WSClient {
 
     sendCommand(label) {
         this._send({
-            id: crypto.randomUUID().toString(),
+            id: generateUUID(),
             type: "COMMAND",
             label
         });
@@ -76,7 +78,7 @@ class WSClient {
 
     sendEvent(eventType, payload = {}) {
         this._send({
-            id: crypto.randomUUID().toString(),
+            id: generateUUID(),
             type: "EVENT",
             payload: {
                 eventType,
@@ -107,13 +109,27 @@ class WSClient {
 
     off(event, callback) {
         if (!this.listeners[event]) return;
-        this.listeners[event] = this.listeners[event].filter(cb => cb !== callback);
+        if (callback) {
+            this.listeners[event] = this.listeners[event].filter(cb => cb !== callback);
+        } else {
+            delete this.listeners[event];
+        }
     }
 
     emit(event, data) {
         if (!this.listeners[event]) return;
         this.listeners[event].forEach(cb => cb(data));
     }
+}
+
+function generateUUID() {
+    if (crypto?.randomUUID) return crypto.randomUUID();
+    // fallback simple tipo UUID
+    return 'xxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, c => {
+        const r = Math.random() * 16 | 0;
+        const v = c === 'x' ? r : (r & 0x3 | 0x8);
+        return v.toString(16);
+    });
 }
 
 const wsClient = new WSClient();

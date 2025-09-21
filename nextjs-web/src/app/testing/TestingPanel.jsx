@@ -8,7 +8,7 @@ export default function TestingPanel() {
     const [content, setContent] = useState("")
 
     useEffect(() => {
-        wsClient.connect("ws://localhost:8080/ws");
+        wsClient.connect(`${process.env.NEXT_PUBLIC_WS_URL}/ws`);
 
         const onOpen = () => {
             wsClient.sendCommand("getTest");
@@ -26,9 +26,9 @@ export default function TestingPanel() {
         wsClient.on("command", onCommand);
 
         return () => {
-            wsClient.off("open", onOpen);
-            wsClient.off("SYNC_DATA", onSyncData);
-            wsClient.off("command", onCommand);
+            wsClient.off("open");
+            wsClient.off("SYNC_DATA");
+            wsClient.off("command");
             wsClient.disconnect();
         };
     }, []);
