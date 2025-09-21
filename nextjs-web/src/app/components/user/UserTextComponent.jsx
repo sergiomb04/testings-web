@@ -21,7 +21,7 @@ async function getUserData() {
 
 export default async function UserTextComponent() {
     const userData = await getUserData();
-    console.log("DEBUG userdata:", userData)
+
     if (!userData) return null;
 
     const text = userData?.text;

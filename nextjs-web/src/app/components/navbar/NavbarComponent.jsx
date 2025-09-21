@@ -21,7 +21,7 @@ export default function NavbarComponent() {
     const pathname = usePathname();
     const [hovered, setHovered] = useState(null);
     const [mobileNavOpen, setMobileNavOpen] = useState(false);
-    const {user, setUser} = useUser();
+    const {user} = useUser();
 
     useEffect(() => {
         setMobileNavOpen(false);

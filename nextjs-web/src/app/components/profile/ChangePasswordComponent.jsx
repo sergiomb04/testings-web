@@ -4,12 +4,9 @@ import {toast} from "react-hot-toast";
 import PanelButton from "@/app/components/button/PanelButton";
 import {useUser} from "@/app/context/UserContext";
 import {useState} from "react";
-import {router} from "next/client";
 
 export default function ChangePassword() {
     const {user} = useUser();
-
-    console.log('DEBUG USER:', user)
 
     const [oldPassword, setOldPassword] = useState('')
     const [newPassword, setNewPassword] = useState('')

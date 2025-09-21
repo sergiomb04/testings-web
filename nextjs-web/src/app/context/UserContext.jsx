@@ -7,7 +7,7 @@ export function UserProvider({ children, initialUser }) {
     const [user, setUser] = useState(initialUser);
     const [token, setToken] = useState(null);
 
-    useEffect(() => {
+    const updateToken = () => {
         let t;
         if (typeof localStorage !== 'undefined') {
             t = localStorage.getItem("token");
@@ -18,9 +18,14 @@ export function UserProvider({ children, initialUser }) {
                 ?.split('=')[1];
         }
         setToken(t);
+    }
+
+    useEffect(() => {
+        updateToken()
     }, []);
 
     const refreshUser = async () => {
+        updateToken()
         if (!token) return; // evitar llamar sin token
         try {
             const res = await fetch(`http://192.168.0.12:8080/api/user`, {

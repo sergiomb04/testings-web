@@ -72,9 +72,7 @@ public class UserController {
 
     private static String getUserNameFromRequest(HttpServletRequest request) {
         String token = getBearerToken(request);
-        System.out.println("DEBUG getUserNameFromRequest 1 " + token);
         if (token == null) token = getCookieToken(request);
-        System.out.println("DEBUG getUserNameFromRequest 2 " + token);
         if (token == null) return null;
 
         String username = null;
