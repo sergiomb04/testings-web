@@ -7,9 +7,10 @@ export default function NavLogoComp() {
     }
 
     return (
-        <div className={"flex gap-2 justify-center align-middle items-center font-sans font-bold w-max text-xl"}>
+        <a className={"flex gap-2 justify-center align-middle items-center font-sans font-bold w-max text-xl cursor-pointer"}
+        href="/">
             <Image src="/logo.svg" alt="Logo" width={10} height={10} style={imageStyle}/>
             <p>Empresa Moderna</p>
-        </div>
+        </a>
     )
 }
