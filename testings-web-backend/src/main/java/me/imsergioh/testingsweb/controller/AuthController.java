@@ -6,6 +6,7 @@ import me.imsergioh.testingsweb.object.request.LoginRequest;
 import me.imsergioh.testingsweb.object.user.User;
 import me.imsergioh.testingsweb.service.JwtService;
 import me.imsergioh.testingsweb.service.UserService;
+import org.bson.Document;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -31,6 +32,7 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequest request) {
+        if (request.isNotValid()) return ResponseEntity.status(500).body(new Document("message", "Login no válido.").toJson());
         UserService userService = UserService.getInstance();
         User user = userService.getByUsername(request.username());
         if (user != null && userService.getPasswordEncoder().matches(request.password(), user.password())) {
@@ -42,6 +44,7 @@ public class AuthController {
 
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody LoginRequest request) {
+        if (request.isNotValid()) return ResponseEntity.status(500).body(new Document("message", "Registro no válido.").toJson());
         UserService userService = UserService.getInstance();
         User toCheckUser = userService.getByUsername(request.username());
 
@@ -60,6 +63,7 @@ public class AuthController {
 
     @PostMapping("/change-password")
     public ResponseEntity<?> register(@RequestBody ChangePasswordRequest request) {
+        if (request.isNotValid()) return ResponseEntity.status(500).body(new Document("message", "Solicitud no válida.").toJson());
         ResponseEntity<?> response = ResponseEntity.status(500).body(null);
 
         UserService userService = UserService.getInstance();

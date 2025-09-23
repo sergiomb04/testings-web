@@ -28,7 +28,7 @@ export function UserProvider({ children, initialUser }) {
         updateToken()
         if (!token) return; // evitar llamar sin token
         try {
-            const res = await fetch(`http://192.168.0.12:8080/api/user`, {
+            const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/user`, {
                 method: "GET",
                 headers: {
                     "Authorization": `Bearer ${token}`

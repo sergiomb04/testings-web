@@ -3,7 +3,7 @@ import fetch from 'node-fetch';
 export async function POST(req) {
     const { text } = await req.json();
 
-    const res = await fetch('http://192.168.0.12:8080/api/text/set', {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/text/set`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ text })

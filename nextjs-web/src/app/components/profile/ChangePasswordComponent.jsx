@@ -14,7 +14,7 @@ export default function ChangePassword() {
 
     const changePassword = async (oldPassword, password) => {
         try {
-            const res = await fetch('http://192.168.0.12:8080/api/auth/change-password', {
+            const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/change-password`, {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify({ username:user.username, oldPassword, newPassword})

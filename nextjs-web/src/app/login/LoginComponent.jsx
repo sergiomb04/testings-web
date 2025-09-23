@@ -14,7 +14,7 @@ export default function LoginComponent() {
 
     const login = async (username, password) => {
         try {
-            const res = await fetch('http://192.168.0.12:8080/api/auth/login', {
+            const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/login`, {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify({ username, password })
